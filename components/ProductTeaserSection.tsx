@@ -61,7 +61,7 @@ export function ProductTeaserSection() {
           {/* Price */}
           <div>
             <p className="text-14 font-mono tracking-widest text-light-grey">
-              ${product.price.toFixed(2)}
+               {product.price.toFixed(2)}DT
             </p>
           </div>
 

@@ -2,13 +2,18 @@
 
 import { UnseenLogo } from './UnseenLogo'
 import Reveal from './animations/Reveal'
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import Image from 'next/image'
 
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null)
   const [dotPos, setDotPos] = useState(0)
   const [introComplete, setIntroComplete] = useState(false)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -17,13 +22,17 @@ export function HeroSection() {
     return () => clearInterval(interval)
   }, [])
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIntroComplete(true), 1500)
-    return () => clearTimeout(timer)
-  }, [])
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    const next = latest > 0.14
+    setIntroComplete((prev) => (prev === next ? prev : next))
+  })
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <section
+      ref={sectionRef}
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}
+    >
       {/* Background grain */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" />
 
@@ -100,7 +109,7 @@ export function HeroSection() {
 
       {/* Bottom Left - Location */}
       <div className="absolute bottom-8 left-8">
-        <p className="text-10 font-mono font-bold tracking-widest" style={{ color: 'var(--text-tertiary)' }}>TUNISIA</p>
+        <p className="text-10 font-mono font-bold tracking-widest" style={{ color: 'var(--text-tertiary)' }}>TUNISIA 216</p>
       </div>
 
       {/* Bottom Right - Scroll Indicator */}

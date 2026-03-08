@@ -19,7 +19,7 @@ export const products: Product[] = [
     id: 'phantom-cargo-001',
     name: 'SWEATER EE01',
     slug: 'phantom-cargo',
-    price: 285,
+    price: 159,
     edition: 'LIMITED — 01 / 100',
     material: 'MILITARY RIPSTOP NYLON',
     fit: 'UNISEX OVERSIZED',
