@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: 'UNSEEN — SS26',
   description: 'Underground streetwear. Limited edition drops. Cinematic design.',
   generator: 'v0.app',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export const viewport: Viewport = {
